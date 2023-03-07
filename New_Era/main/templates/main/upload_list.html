@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <table>
+    <thead>
+      <tr>
+        <th>№</th> <!-- Добавляем колонку со счетчиком -->
+        <th><input type="checkbox" id="select-all"></th> <!-- Добавляем колонку с checkbox -->
+        <th><a href="?sort=Firstname">First name</a></th>
+        <th><a href="?sort=Lastname">Last name</a></th>
+        <th><a href="?sort=Phone">Phone</a></th>
+        <th><a href="?sort=Email">Email</a></th>
+        <th><a href="?sort=DateRegistr">Date registr</a></th>
+        <th><a href="?sort=DateUpload">Date upload</a></th>
+        <th><a href="?sort=Brend">Brend</a></th>
+        <th><a href="?sort=Country">Country</a></th>
+        <th><a href="?sort=Mpc1">Mpc1</a></th>
+        <th><a href="?sort=Mpc2">Mpc2</a></th>
+        <th><a href="?sort=Mpc3">Mpc3</a></th>
+        <th><a href="?sort=Mpc4">Mpc4</a></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in files %}
+      <tr>
+        <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
+        <td><input type="checkbox" class="checkbox shift-select"></td> <!-- Добавляем checkbox для каждой строки -->
+        <td>{{ file.first_name }}</td>
+        <td>{{ file.last_name }}</td>
+        <td>{{ file.phone }}</td>
+        <td>{{ file.email }}</td>
+        <td>{{ file.date_registr }}</td>
+        <td>{{ file.date_upload }}</td>
+        <td>{{ file.brand }}</td>
+        <td>{{ file.county }}</td>
+        <td>{{ file.mpc1 }}</td>
+        <td>{{ file.mpc2 }}</td>
+        <td>{{ file.mpc3 }}</td>
+        <td>{{ file.mpc4 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Era</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
+  </head>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Company Logo">
+    </div>
+    <div class="import-export">
+      <button class="import">Import</button>
+      <button class="export">Export</button>
+    </div>
+    <div class="date-range">
+      <label for="start-date">Start Date:</label>
+      <input type="date" id="start-date" name="start-date">
+      <label for="end-date">End Date:</label>
+      <input type="date" id="end-date" name="end-date">
+    </div>
+  </header>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all"></th> <!-- Добавляем колонку с checkbox -->
+          <th><a href="?sort=Firstname">First name</a></th>
+          <th><a href="?sort=Lastname">Last name</a></th>
+          <th><a href="?sort=Phone">Phone</a></th>
+          <th><a href="?sort=Email">Email</a></th>
+          <th><a href="?sort=DateRegistr">Date registr</a></th>
+          <th><a href="?sort=DateUpload">Date upload</a></th>
+          <th><a href="?sort=Brend">Brend</a></th>
+          <th><a href="?sort=Country">Country</a></th>
+          <th><a href="?sort=Mpc1">Mpc1</a></th>
+          <th><a href="?sort=Mpc2">Mpc2</a></th>
+          <th><a href="?sort=Mpc3">Mpc3</a></th>
+          <th><a href="?sort=Mpc4">Mpc4</a></th>
+          <th>Count</th> <!-- Добавляем колонку со счетчиком -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" class="row-checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
+          <td>{{ file.first_name }}</td>
+          <td>{{ file.last_name }}</td>
+          <td>{{ file.phone }}</td>
+          <td>{{ file.email }}</td>
+          <td>{{ file.date_registr }}</td>
+          <td>{{ file.date_upload }}</td>
+          <td>{{ file.brand }}</td>
+          <td>{{ file.county }}</td>
+          <td>{{ file.mpc1 }}</td>
+          <td>{{ file.mpc2 }}</td>
+          <td>{{ file.mpc3 }}</td>
+          <td>{{ file.mpc4 }}</td>
+          <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
