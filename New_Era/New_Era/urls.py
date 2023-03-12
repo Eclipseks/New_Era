@@ -6,5 +6,9 @@ urlpatterns = [
     path('home/', views.upload_list, name='upload_list'),
     path('upload_file/', views.upload_file, name='upload_file'),
     path('admin/', admin.site.urls),
-    path('', views.login_view, name='login')
+    path('', views.login_view, name='login'),
+    # path('export/', views.export, name='export'),
+    path('logout/', views.logout_view, name='logout'),
 ]
+
+

@@ -7,13 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
   </head>
   <header>
-    <div class="logo">
-      <img src="logo.png" alt="Company Logo">
-    </div>
+    {% comment %} <div class="logo"> {% endcomment %}
+      <h2>NEW ERA</h2>
+      {% comment %} <img src="logo.png" alt="NEW ERA"> {% endcomment %}
+    {% comment %} </div> {% endcomment %}
     <div class="import-export">
       <a href="/upload_file"><button class="import">Import</button></a>
       <button class="export">Export</button>
-      <button class="quit">Log out</button>
+      <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
     {% comment %} </div>
     <div class="date-range">
       <label for="start-date"></label>

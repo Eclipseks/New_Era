@@ -1,6 +1,19 @@
-{% extends 'base.html' %}
-
-{% block content %}
+<html>
+  <head>
+    <title>{% block title %}New Era{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
+  </head>
+  <header>
+      <h2>NEW ERA</h2>
+    <div class="import-export">
+      <a href="/upload_file"><button class="import">Import</button></a>
+      <button class="export" id='export-button'>Export</button>
+      <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+  </header>
+<form method="POST">
+  {% csrf_token %}
+  <!-- rest of form goes here -->
   <table>
     <thead>
       <tr>
@@ -18,27 +31,36 @@
         <th><a href="?sort=Mpc2">Mpc2</a></th>
         <th><a href="?sort=Mpc3">Mpc3</a></th>
         <th><a href="?sort=Mpc4">Mpc4</a></th>
+        <th><a href="?sort=From">From</a></th>
+        <th><a href="?sort=Save">T</a></th>
       </tr>
     </thead>
-    <tbody>
-      {% for file in files %}
-      <tr>
-        <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
-        <td><input type="checkbox" class="checkbox shift-select"></td> <!-- Добавляем checkbox для каждой строки -->
-        <td>{{ file.first_name }}</td>
-        <td>{{ file.last_name }}</td>
-        <td>{{ file.phone }}</td>
-        <td>{{ file.email }}</td>
-        <td>{{ file.date_registr }}</td>
-        <td>{{ file.date_upload }}</td>
-        <td>{{ file.brand }}</td>
-        <td>{{ file.county }}</td>
-        <td>{{ file.mpc1 }}</td>
-        <td>{{ file.mpc2 }}</td>
-        <td>{{ file.mpc3 }}</td>
-        <td>{{ file.mpc4 }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
+    <div class='rows'>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
+          <td><input type="checkbox" class="checkbox" value='{{file.id}}' id='item{{ file.id }}'></td> <!-- Добавляем checkbox для каждой строки -->
+          <td for='item{{ file.id }}'>{{ file.first_name }}</td>
+          <td for='item{{ file.id }}'>{{ file.last_name }}</td>
+          <td for='item{{ file.id }}'>{{ file.phone }}</td>
+          <td for='item{{ file.id }}'>{{ file.email }}</td>
+          <td for='item{{ file.id }}'>{{ file.date_registr }}</td>
+          <td for='item{{ file.id }}'>{{ file.date_upload }}</td>
+          <td for='item{{ file.id }}'>{{ file.brand }}</td>
+          <td for='item{{ file.id }}'>{{ file.country }}</td>
+          <td for='item{{ file.id }}'>{{ file.mpc1 }}</td>
+          <td for='item{{ file.id }}'>{{ file.mpc2 }}</td>
+          <td for='item{{ file.id }}'>{{ file.mpc3 }}</td>
+          <td for='item{{ file.id }}'>{{ file.mpc4 }}</td>
+          <td for='item{{ file.id }}'>Viktor</td>
+          <td for='item{{ file.id }}'>1</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </div>
+    {% load static %}
+    <script src="{% static 'select_all.js' %}"></script>
+    {% comment %} <script src="{% static 'shift.js' %}"></script> {% endcomment %}
   </table>
-{% endblock %}
+</form>
