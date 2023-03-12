@@ -40,27 +40,27 @@
         {% for file in files %}
         <tr>
           <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
-          <td><input type="checkbox" class="checkbox" value='{{file.id}}' id='item{{ file.id }}'></td> <!-- Добавляем checkbox для каждой строки -->
-          <td for='item{{ file.id }}'>{{ file.first_name }}</td>
-          <td for='item{{ file.id }}'>{{ file.last_name }}</td>
-          <td for='item{{ file.id }}'>{{ file.phone }}</td>
-          <td for='item{{ file.id }}'>{{ file.email }}</td>
-          <td for='item{{ file.id }}'>{{ file.date_registr }}</td>
-          <td for='item{{ file.id }}'>{{ file.date_upload }}</td>
-          <td for='item{{ file.id }}'>{{ file.brand }}</td>
-          <td for='item{{ file.id }}'>{{ file.country }}</td>
-          <td for='item{{ file.id }}'>{{ file.mpc1 }}</td>
-          <td for='item{{ file.id }}'>{{ file.mpc2 }}</td>
-          <td for='item{{ file.id }}'>{{ file.mpc3 }}</td>
-          <td for='item{{ file.id }}'>{{ file.mpc4 }}</td>
-          <td for='item{{ file.id }}'>Viktor</td>
-          <td for='item{{ file.id }}'>1</td>
+          <td><input type="checkbox" class="checkbox" value="{{ file.id }}" id="{{ file.id }}" name="checkboxes"></td> <!-- Добавляем checkbox для каждой строки -->
+          <td for='{{ file.id }}'>{{ file.first_name }}</td>
+          <td for='{{ file.id }}'>{{ file.last_name }}</td>
+          <td for='{{ file.id }}'>{{ file.phone }}</td>
+          <td for='{{ file.id }}'>{{ file.email }}</td>
+          <td for='{{ file.id }}'>{{ file.date_registr }}</td>
+          <td for='{{ file.id }}'>{{ file.date_upload }}</td>
+          <td for='{{ file.id }}'>{{ file.brand }}</td>
+          <td for='{{ file.id }}'>{{ file.country }}</td>
+          <td for='{{ file.id }}'>{{ file.mpc1 }}</td>
+          <td for='{{ file.id }}'>{{ file.mpc2 }}</td>
+          <td for='{{ file.id }}'>{{ file.mpc3 }}</td>
+          <td for='{{ file.id }}'>{{ file.mpc4 }}</td>
+          <td for='{{ file.id }}'>Viktor</td>
+          <td for='{{ file.id }}'>1</td>
         </tr>
         {% endfor %}
       </tbody>
     </div>
     {% load static %}
     <script src="{% static 'select_all.js' %}"></script>
-    {% comment %} <script src="{% static 'shift.js' %}"></script> {% endcomment %}
+    <script src="{% static 'export.js' %}"></script>
   </table>
 </form>

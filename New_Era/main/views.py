@@ -122,3 +122,48 @@ def upload_file(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+from django.http import HttpResponse
+import openpyxl
+
+@login_required
+def export_view(request):
+    list_hint = ['first_name', 
+        'last_name', 
+        'phone', 
+        'email',
+        'brand',
+        'country',
+        'date_registr',
+        'date_upload',
+        'mpc1',
+        'mpc2',
+        'mpc3',
+        'mpc4'
+    ]
+    selected_checkboxes = request.GET.getlist('checkboxes')
+    ids_str = selected_checkboxes[0].split(',')
+    pqueryset = Upload.objects.filter(id__in=ids_str)
+
+    # Получение данных из модели
+    rows = Upload.objects.filter(id__in=ids_str).values_list(*list_hint)
+
+    # Создание нового Excel-файла
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+
+    # Добавление заголовков колонок в первую строку
+    headers = list_hint
+    worksheet.append(headers)
+
+    # Запись данных в Excel-файл
+    for row_num, row in enumerate(rows, start=2):  # Стартуем со второй строки, чтобы заголовки не затирались
+        for col_num, value in enumerate(row, start=1):
+            worksheet.cell(row=row_num, column=col_num, value=value)
+
+    # Сохранение Excel-файла и отправка пользователю
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="my_excel_file.xlsx"'
+    workbook.save(response)
+    return response

@@ -1,16 +1,15 @@
-function exportSelected() {
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    var values = Array.from(checkboxes, checkbox => checkbox.value);
-    // Send AJAX request to Django views
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/export/');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        alert('Export successful!');
-      } else {
-        alert('Export failed!');
-      }
-    };
-    xhr.send(JSON.stringify({ 'values': values }));
-  }
+const exportButton = document.getElementById('export-button');
+
+exportButton.addEventListener('click', () => {
+  const checkboxes = document.getElementsByName('checkboxes');
+  const selectedCheckboxes = [];
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      selectedCheckboxes.push(checkbox.value);
+    }
+  });
+
+  const url = `/export/?checkboxes=${selectedCheckboxes.join(',')}`;
+  window.location.href = url;
+});

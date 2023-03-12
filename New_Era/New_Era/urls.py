@@ -7,8 +7,8 @@ urlpatterns = [
     path('upload_file/', views.upload_file, name='upload_file'),
     path('admin/', admin.site.urls),
     path('', views.login_view, name='login'),
-    # path('export/', views.export, name='export'),
     path('logout/', views.logout_view, name='logout'),
+    path('export/', views.export_view, name='export'),
 ]
 
 
