@@ -60,7 +60,7 @@ def upload_list(request):
         files = Upload.objects.order_by('mpc4')
     elif sort == 'Phone':
         files = Upload.objects.order_by('phone')
-
+    
     return render(request, 'main/upload_list.html', {'files': files})
 
         
