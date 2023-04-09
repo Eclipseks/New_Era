@@ -1,12 +1,17 @@
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
     <title>{% block title %}New Era{% endblock %}</title>
     {% load static %}
+    {% comment %} <script src="{% static 'script.js' %}"></script> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'upload_file.css' %}">
-</head> 
+  </head>
+  <header>
+    <a href="/"><h2>NEW ERA</h2></a>
+    <div class="import-export">
+      <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+  </header>
 {% block content %}
-<h1>NEW ERA</h1>
-<h2>Upload File</h2>
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.file.widget }}

@@ -35,7 +35,7 @@ h2 {
 }
 
 .import-export button {
-  background-color: #ffd700;
+  background-color: #F5CC00;
   color: #000;
   padding: 8px 16px;
   border: none;
@@ -83,7 +83,7 @@ th, td {
 }
 
 th {
-  background-color: #FFD700;
+  background-color: #F5CC00;
   color: black;
   /* border: 1px solid #000000ad; */
 }
@@ -93,7 +93,7 @@ th {
 } */
 
 tbody tr:nth-child(even) {
-  background-color: rgb(64, 62, 62);
+  background-color: #403e3e;
 }
 
 tbody tr:hover {
@@ -111,6 +111,10 @@ table td, table th {
   font-size: 15px;
 }
 
+/* tbody tr.selected {
+  background-color: #F5CC00;
+} */
+
 ::-webkit-scrollbar {
   width: 0px;
   height: 0px;
@@ -123,3 +127,4 @@ table td, table th {
 ::-webkit-scrollbar-thumb {
   background-color: #000000;
 }
+
