@@ -29,6 +29,10 @@ h2 {
   color: white;
 }
 
+.check {
+  padding: 0px 0px;
+}
+
 .import-export {
   display: flex;
   margin-right: 20px;
@@ -101,13 +105,17 @@ tbody tr:hover {
 }
 
 td {
-  width: 100px;
+  /* width: 100px; */
   /* border: 1px solid #FFD700; */
   text-align: center;
 
 }
 
-table td, table th {
+table th {
+  font-size: 17px;
+}
+
+table td {
   font-size: 15px;
 }
 

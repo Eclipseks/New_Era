@@ -1,4 +1,18 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}New Era{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
+  </head>
+  <header>
+    <a href="/"><h2>NEW ERA</h2></a>
+    <div class="import-export">
+      <button>Sort</button>
+      <a href="/upload_file"><button class="import">Import</button></a>
+      <button class="export" id='export-button'>Export</button>
+      <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+  </header>
 {% block content %}
   <form method="POST">
     {% csrf_token %}
@@ -8,6 +22,10 @@
         <tr>
           <th>№</th> <!-- Добавляем колонку со счетчиком -->
           <th><input type="checkbox" id="select-all"></th> <!-- Добавляем колонку с checkbox -->
+          <th>T</th>
+          <th>From</th>
+          <th>Registration</th>
+          <th>Upload</th>
           <th>First name</th>
           <th>Last name</th>
           <th>Phone</th>
@@ -18,10 +36,6 @@
           <th>Mpc2</th>
           <th>Mpc3</th>
           <th>Mpc4</th>
-          <th>From</th>
-          <th>T</th>
-          <th>Registration</th>
-          <th>Upload</th>
         </tr>
       </thead>
       <div class='rows'>
@@ -66,6 +80,10 @@
           <tr>
             <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
             <td><input type="checkbox" class="checkbox" value="{{ file.id }}" id="{{ file.id }}" name="checkboxes"></td> <!-- Добавляем checkbox для каждой строки -->
+            <td for='{{ file.id }}'>1</td>
+            <td for='{{ file.id }}'>Viktor</td>
+            <td for='{{ file.id }}'>{{ file.date_registr|date:"d.m.Y" }}</td>
+            <td for='{{ file.id }}'>{{ file.date_upload|date:"d.m.Y" }}</td>
             <td for='{{ file.id }}'>{{ file.first_name }}</td>
             <td for='{{ file.id }}'>{{ file.last_name }}</td>
             <td for='{{ file.id }}'>{{ file.phone }}</td>
@@ -76,10 +94,6 @@
             <td for='{{ file.id }}'>{{ file.mpc2 }}</td>
             <td for='{{ file.id }}'>{{ file.mpc3 }}</td>
             <td for='{{ file.id }}'>{{ file.mpc4 }}</td>
-            <td for='{{ file.id }}'>Viktor</td>
-            <td for='{{ file.id }}'>1</td>
-            <td for='{{ file.id }}'>{{ file.date_registr|date:"d.m.Y" }}</td>
-            <td for='{{ file.id }}'>{{ file.date_upload|date:"d.m.Y" }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -90,3 +104,4 @@
     </table>
   </form>
 {% endblock %}
+</html>

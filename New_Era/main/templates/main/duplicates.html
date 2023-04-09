@@ -5,9 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
     </head>
     <header>
-      <h2>NEW ERA</h2>
-    <div class="import-export">
-        <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+        <a href="/"><h2>NEW ERA</h2></a>
+      
+        <div class="import-export">
+            <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
     </header>
     {% block content %}
         <h2>----------------</h2>

@@ -47,7 +47,7 @@ def upload_list(request):
 
 # Import data from exel, csv
 @never_cache
-@login_required
+@login_required(login_url='/login/')
 def upload_file(request):
     duplicate_entries = []
 
@@ -138,12 +138,11 @@ def export_view(request):
         'email',
         'brand',
         'country',
-        'date_registr',
-        'date_upload',
         'mpc1',
         'mpc2',
         'mpc3',
-        'mpc4'
+        'mpc4',
+        'date_registr'
     ]
     selected_checkboxes = request.GET.getlist('checkboxes')
     ids_str = selected_checkboxes[0].split(',')
