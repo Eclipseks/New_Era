@@ -18,12 +18,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Brand</th>
-                    <th>Country</th>
+                  <th>From</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Brand</th>
+                  <th>Country</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,12 +54,13 @@
                 </tr>
                 {% for duplicate in duplicates %}
                     <tr>
-                        <td>{{ duplicate.first_name }}</td>
-                        <td>{{ duplicate.last_name }}</td>
-                        <td>{{ duplicate.phone }}</td>
-                        <td>{{ duplicate.email }}</td>
-                        <td>{{ duplicate.brand }}</td>
-                        <td>{{ duplicate.country }}</td>
+                      <td>{{ duplicate.source.name }}</td>
+                      <td>{{ duplicate.first_name }}</td>
+                      <td>{{ duplicate.last_name }}</td>
+                      <td>{{ duplicate.phone }}</td>
+                      <td>{{ duplicate.email }}</td>
+                      <td>{{ duplicate.brand }}</td>
+                      <td>{{ duplicate.country }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

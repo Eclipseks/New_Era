@@ -43,8 +43,8 @@
         <div class='rows'>
           <tbody>
             <tr>
-              <td></td> <!-- Добавляем счетчик для каждой строки -->
-              <td><input type="checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
+              <td></td> 
+              <td><input type="checkbox"></td>
               <td></td>
               <td></td>
               <td></td>
@@ -83,7 +83,7 @@
               <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
               <td><input type="checkbox" class="checkbox" value="{{ file.id }}" id="{{ file.id }}" name="checkboxes"></td> <!-- Добавляем checkbox для каждой строки -->
               <td for='{{ file.id }}'>{{ file.download_count }}</td>
-              <td for='{{ file.id }}'>Viktor</td>
+              <td for='{{ file.id }}'>{{ file.source.name }}</td>
               <td for='{{ file.id }}'>{{ file.date_registr|date:"d.m.Y" }}</td>
               <td for='{{ file.id }}'>{{ file.date_upload|date:"d.m.Y" }}</td>
               <td for='{{ file.id }}'>{{ file.first_name }}</td>

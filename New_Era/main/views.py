@@ -43,7 +43,6 @@ def upload_list(request):
 
     return render(request, 'main/upload_list.html', {'files': files})
 
-        
 
 # Import data from exel, csv
 @never_cache
@@ -54,9 +53,10 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            source = form.cleaned_data['source']
             files = request.FILES.getlist('file')
             for file in files:
-                duplicates = process_file(file)
+                duplicates = process_file(file, source)
                 duplicate_entries.extend(duplicates)
 
             return render(request, 'main/duplicates.html', {'duplicates': duplicate_entries})
@@ -65,7 +65,7 @@ def upload_file(request):
     return render(request, 'main/upload_file.html', {'form': form})
 
 
-def process_file(file):
+def process_file(file, source):
     file_extension = os.path.splitext(file.name)[1]
     if file_extension in ('.xls', '.xlsx'):
         df = pd.read_excel(file)
@@ -84,13 +84,15 @@ def process_file(file):
     ]
 
     upload_fields = set(field.name for field in Upload._meta.get_fields())
-    
+
     duplicates = []
 
     for _, row in df.iterrows():
         upload_data = {col: op(row[col]) for col, op in columns_operations}
         upload_data.update({col: row[col] for col in row.index if col not in dict(columns_operations).keys()})
         upload_data = {col: val for col, val in upload_data.items() if col in upload_fields}
+
+        upload_data['source'] = source
 
         first_name = upload_data['first_name']
         last_name = upload_data['last_name']
@@ -112,7 +114,7 @@ def process_file(file):
             upload_data['date_upload'] = datetime.now()
             upload = Upload(**upload_data)
             upload.save()
-            
+
         if is_duplicate:
             duplicates.append(upload_data)
         else:
@@ -188,3 +190,4 @@ def export_view(request):
         response['Content-Disposition'] = f'attachment; filename="leed_{datetime.now().date()}.xlsx"'
         workbook.save(response)
         return response
+    

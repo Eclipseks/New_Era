@@ -15,6 +15,7 @@
     {% block content %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ form.source }}
         {{ form.file.widget }}
         <input type="file" name="{{ form.file.name }}" id="{{ form.file.id_for_label }}" multiple>
         <button type="submit">Upload</button>
