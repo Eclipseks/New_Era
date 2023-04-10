@@ -1,42 +1,69 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %}New Era{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
-    </head>
+  </head>
+  <body>
     <header>
-        <a href="/"><h2>NEW ERA</h2></a>
-      
-        <div class="import-export">
-            <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+      <a href="/" class="header-link"><h2>NEW ERA</h2></a>
+      <div class="import-export">
+        <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+      </div>
     </header>
     {% block content %}
-        <h2>----------------</h2>
-        {% if duplicates %}
-            <table>
-                <thead>
+    <h2>----------------</h2>
+    {% if duplicates %}
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Brand</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ duplicate.country }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ duplicate.country }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ duplicate.country }}</td>
+                </tr>
+                {% for duplicate in duplicates %}
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Brand</th>
-                        <th>Country</th>
+                        <td>{{ duplicate.first_name }}</td>
+                        <td>{{ duplicate.last_name }}</td>
+                        <td>{{ duplicate.phone }}</td>
+                        <td>{{ duplicate.email }}</td>
+                        <td>{{ duplicate.brand }}</td>
+                        <td>{{ duplicate.country }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for duplicate in duplicates %}
-                        <tr>
-                            <td>{{ duplicate.first_name }}</td>
-                            <td>{{ duplicate.last_name }}</td>
-                            <td>{{ duplicate.phone }}</td>
-                            <td>{{ duplicate.email }}</td>
-                            <td>{{ duplicate.brand }}</td>
-                            <td>{{ duplicate.country }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     {% endblock %}
+  </body>
 </html>

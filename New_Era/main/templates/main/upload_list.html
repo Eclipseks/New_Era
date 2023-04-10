@@ -6,102 +6,105 @@
     <link rel="stylesheet" type="text/css" href="{% static 'upload_list.css' %}">
   </head>
   <header>
-    <a href="/"><h2>NEW ERA</h2></a>
+    <a href="/" class="header-link"><h2>NEW ERA</h2></a>
     <div class="import-export">
       <button>Sort</button>
       <a href="/upload_file"><button class="import">Import</button></a>
       <button class="export" id='export-button'>Export</button>
       <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+    </div>
   </header>
-{% block content %}
-  <form method="POST">
-    {% csrf_token %}
-    <!-- rest of form goes here -->
-    <table>
-      <thead>
-        <tr>
-          <th>№</th> <!-- Добавляем колонку со счетчиком -->
-          <th><input type="checkbox" id="select-all"></th> <!-- Добавляем колонку с checkbox -->
-          <th>T</th>
-          <th>From</th>
-          <th>Registration</th>
-          <th>Upload</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Brend</th>
-          <th>Country</th>
-          <th>Mpc1</th>
-          <th>Mpc2</th>
-          <th>Mpc3</th>
-          <th>Mpc4</th>
-        </tr>
-      </thead>
-      <div class='rows'>
-        <tbody>
+  <body>
+  {% block content %}
+    <form method="POST">
+      {% csrf_token %}
+      <!-- rest of form goes here -->
+      <table>
+        <thead>
           <tr>
-            <td></td> <!-- Добавляем счетчик для каждой строки -->
-            <td><input type="checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th>№</th> <!-- Добавляем колонку со счетчиком -->
+            <th><input type="checkbox" id="select-all"></th> <!-- Добавляем колонку с checkbox -->
+            <th>D</th>
+            <th>From</th>
+            <th>Registration</th>
+            <th>Upload</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Brend</th>
+            <th>Country</th>
+            <th>Mpc1</th>
+            <th>Mpc2</th>
+            <th>Mpc3</th>
+            <th>Mpc4</th>
           </tr>
-          <tr>
-            <td></td> <!-- Добавляем счетчик для каждой строки -->
-            <td><input type="checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          {% for file in files %}
-          <tr>
-            <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
-            <td><input type="checkbox" class="checkbox" value="{{ file.id }}" id="{{ file.id }}" name="checkboxes"></td> <!-- Добавляем checkbox для каждой строки -->
-            <td for='{{ file.id }}'>1</td>
-            <td for='{{ file.id }}'>Viktor</td>
-            <td for='{{ file.id }}'>{{ file.date_registr|date:"d.m.Y" }}</td>
-            <td for='{{ file.id }}'>{{ file.date_upload|date:"d.m.Y" }}</td>
-            <td for='{{ file.id }}'>{{ file.first_name }}</td>
-            <td for='{{ file.id }}'>{{ file.last_name }}</td>
-            <td for='{{ file.id }}'>{{ file.phone }}</td>
-            <td for='{{ file.id }}'>{{ file.email }}</td>
-            <td for='{{ file.id }}'>{{ file.brand }}</td>
-            <td for='{{ file.id }}'>{{ file.country }}</td>
-            <td for='{{ file.id }}'>{{ file.mpc1 }}</td>
-            <td for='{{ file.id }}'>{{ file.mpc2 }}</td>
-            <td for='{{ file.id }}'>{{ file.mpc3 }}</td>
-            <td for='{{ file.id }}'>{{ file.mpc4 }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </div>
-      {% load static %}
-      <script src="{% static 'select_all.js' %}"></script>
-      <script src="{% static 'export.js' %}"></script>
-    </table>
-  </form>
-{% endblock %}
+        </thead>
+        <div class='rows'>
+          <tbody>
+            <tr>
+              <td></td> <!-- Добавляем счетчик для каждой строки -->
+              <td><input type="checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td> <!-- Добавляем счетчик для каждой строки -->
+              <td><input type="checkbox"></td> <!-- Добавляем checkbox для каждой строки -->
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% for file in files %}
+            <tr>
+              <td>{{ forloop.counter }}</td> <!-- Добавляем счетчик для каждой строки -->
+              <td><input type="checkbox" class="checkbox" value="{{ file.id }}" id="{{ file.id }}" name="checkboxes"></td> <!-- Добавляем checkbox для каждой строки -->
+              <td for='{{ file.id }}'>{{ file.download_count }}</td>
+              <td for='{{ file.id }}'>Viktor</td>
+              <td for='{{ file.id }}'>{{ file.date_registr|date:"d.m.Y" }}</td>
+              <td for='{{ file.id }}'>{{ file.date_upload|date:"d.m.Y" }}</td>
+              <td for='{{ file.id }}'>{{ file.first_name }}</td>
+              <td for='{{ file.id }}'>{{ file.last_name }}</td>
+              <td for='{{ file.id }}'>{{ file.phone }}</td>
+              <td for='{{ file.id }}'>{{ file.email }}</td>
+              <td for='{{ file.id }}'>{{ file.brand }}</td>
+              <td for='{{ file.id }}'>{{ file.country }}</td>
+              <td for='{{ file.id }}'>{{ file.mpc1 }}</td>
+              <td for='{{ file.id }}'>{{ file.mpc2 }}</td>
+              <td for='{{ file.id }}'>{{ file.mpc3 }}</td>
+              <td for='{{ file.id }}'>{{ file.mpc4 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </div>
+        {% load static %}
+        <script src="{% static 'select_all.js' %}"></script>
+        <script src="{% static 'export.js' %}"></script>
+      </table>
+    </form>
+  {% endblock %}
+  </body>
 </html>

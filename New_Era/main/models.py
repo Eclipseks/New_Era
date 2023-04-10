@@ -13,4 +13,5 @@ class Upload(models.Model):
     mpc2 = models.FloatField()
     mpc3 = models.FloatField()
     mpc4 = models.FloatField()
+    download_count = models.PositiveIntegerField(default=0)
     

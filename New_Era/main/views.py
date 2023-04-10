@@ -2,6 +2,7 @@ from datetime import datetime
 import os
 
 import openpyxl
+import csv
 
 from django.http import HttpResponse
 from .forms import UploadFileForm
@@ -15,7 +16,6 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
 
 
 @csrf_protect
@@ -63,7 +63,6 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render(request, 'main/upload_file.html', {'form': form})
-
 
 
 def process_file(file):
@@ -138,34 +137,54 @@ def export_view(request):
         'email',
         'brand',
         'country',
+        'date_registr',
+        'date_upload',
         'mpc1',
         'mpc2',
         'mpc3',
-        'mpc4',
-        'date_registr'
+        'mpc4'
     ]
     selected_checkboxes = request.GET.getlist('checkboxes')
     ids_str = selected_checkboxes[0].split(',')
     pqueryset = Upload.objects.filter(id__in=ids_str)
 
-    # Получение данных из модели
+    # Increment the download counter for each exported row
+    for obj in pqueryset:
+        obj.download_count += 1
+        obj.save()
+
+    # Get data from the model
     rows = Upload.objects.filter(id__in=ids_str).values_list(*list_hint)
 
-    # Создание нового Excel-файла
-    workbook = openpyxl.Workbook()
-    worksheet = workbook.active
+    # Get the file format from the query parameter
+    file_format = request.GET.get('format', 'excel').lower()
 
-    # Добавление заголовков колонок в первую строку
-    headers = list_hint
-    worksheet.append(headers)
+    if file_format == 'csv':
+        # Create a new CSV file
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="leed_{datetime.now().date()}.csv"'
 
-    # Запись данных в Excel-файл
-    for row_num, row in enumerate(rows, start=2):  # Стартуем со второй строки, чтобы заголовки не затирались
-        for col_num, value in enumerate(row, start=1):
-            worksheet.cell(row=row_num, column=col_num, value=value)
+        writer = csv.writer(response)
+        headers = list_hint
+        writer.writerow(headers)
 
-    # Сохранение Excel-файла и отправка пользователю
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = f'attachment; filename="leed_{datetime.now().date()}.xlsx"'
-    workbook.save(response)
-    return response
+        for row in rows:
+            writer.writerow(row)
+
+        return response
+    else:
+        # Create a new Excel file
+        workbook = openpyxl.Workbook()
+        worksheet = workbook.active
+
+        headers = list_hint
+        worksheet.append(headers)
+
+        for row_num, row in enumerate(rows, start=2):
+            for col_num, value in enumerate(row, start=1):
+                worksheet.cell(row=row_num, column=col_num, value=value)
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = f'attachment; filename="leed_{datetime.now().date()}.xlsx"'
+        workbook.save(response)
+        return response

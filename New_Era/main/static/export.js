@@ -1,6 +1,7 @@
 const exportButton = document.getElementById('export-button');
 
-exportButton.addEventListener('click', () => {
+exportButton.addEventListener('click', (e) => {
+  e.preventDefault(); // Prevent the default behavior of the button click
   const checkboxes = document.getElementsByName('checkboxes');
   const selectedCheckboxes = [];
 
@@ -10,6 +11,14 @@ exportButton.addEventListener('click', () => {
     }
   });
 
-  const url = `/export/?checkboxes=${selectedCheckboxes.join(',')}`;
+  let format;
+  do {
+    format = prompt("Enter the desired format (excel or csv):");
+    if (format) {
+      format = format.toLowerCase();
+    }
+  } while (format !== 'excel' && format !== 'csv');
+
+  const url = `/export/?checkboxes=${selectedCheckboxes.join(',')}&format=${format}`;
   window.location.href = url;
 });

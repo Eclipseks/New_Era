@@ -3,24 +3,27 @@
   <head>
     <title>{% block title %}New Era{% endblock %}</title>
     {% load static %}
-    {% comment %} <script src="{% static 'script.js' %}"></script> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'upload_file.css' %}">
   </head>
-  <header>
-    <a href="/"><h2>NEW ERA</h2></a>
-    <div class="import-export">
-      <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
-  </header>
-{% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.file.widget }}
-    <input type="file" name="{{ form.file.name }}" id="{{ form.file.id_for_label }}" multiple>
-    <button type="submit">Upload</button>
-</form>
+  <body>
+    <header>
+      <a href="/" class="header-link"><h2>NEW ERA</h2></a>
+      <div class="import-export">
+        <a href="{% url 'logout' %}"><button class="quit">Log out</button></a>
+      </div>
+    </header>
+    {% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.file.widget }}
+        <input type="file" name="{{ form.file.name }}" id="{{ form.file.id_for_label }}" multiple>
+        <button type="submit">Upload</button>
+    </form>
 
-{% if message %}
-    <p>{{ message }}</p>
-{% endif %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
+  </body>
+</html>
